@@ -19,6 +19,7 @@
 		FA8AED4C1D0F0DCC00FFCBE5 /* MSMVCChildLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AED4B1D0F0DCC00FFCBE5 /* MSMVCChildLoader.swift */; };
 		FA8AED4E1D102D6A00FFCBE5 /* SearchClansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AED4D1D102D6A00FFCBE5 /* SearchClansViewController.swift */; };
 		FA8AED501D1031FF00FFCBE5 /* SearchInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AED4F1D1031FF00FFCBE5 /* SearchInputViewController.swift */; };
+		FA8AED521D105A4900FFCBE5 /* LoadingContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AED511D105A4900FFCBE5 /* LoadingContentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		FA8AED4B1D0F0DCC00FFCBE5 /* MSMVCChildLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSMVCChildLoader.swift; sourceTree = "<group>"; };
 		FA8AED4D1D102D6A00FFCBE5 /* SearchClansViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchClansViewController.swift; sourceTree = "<group>"; };
 		FA8AED4F1D1031FF00FFCBE5 /* SearchInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInputViewController.swift; sourceTree = "<group>"; };
+		FA8AED511D105A4900FFCBE5 /* LoadingContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingContentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				FA8AED1B1D0EF94300FFCBE5 /* MainViewController.swift */,
 				FA8AED4D1D102D6A00FFCBE5 /* SearchClansViewController.swift */,
 				FA8AED4F1D1031FF00FFCBE5 /* SearchInputViewController.swift */,
+				FA8AED511D105A4900FFCBE5 /* LoadingContentViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				FA8AED4E1D102D6A00FFCBE5 /* SearchClansViewController.swift in Sources */,
 				FA8AED501D1031FF00FFCBE5 /* SearchInputViewController.swift in Sources */,
 				FA8AED1C1D0EF94300FFCBE5 /* MainViewController.swift in Sources */,
+				FA8AED521D105A4900FFCBE5 /* LoadingContentViewController.swift in Sources */,
 				FA8AED1A1D0EF94300FFCBE5 /* AppDelegate.swift in Sources */,
 				FA8AED4C1D0F0DCC00FFCBE5 /* MSMVCChildLoader.swift in Sources */,
 			);
