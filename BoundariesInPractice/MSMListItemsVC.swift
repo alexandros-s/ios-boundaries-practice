@@ -13,12 +13,9 @@ enum ViewError: ErrorType {
     case NoData
 }
 
-class MSMErrorView: UIView {
-    
-}
 
-class MSMListItemsVC: UIViewController, MSMContainer {
-    
+
+class MSMListItemsVC: UIViewController, MSMContainer, UITextViewDelegate {
     
     
     func newErrorView () -> UITextView {
@@ -28,7 +25,7 @@ class MSMListItemsVC: UIViewController, MSMContainer {
         sampleTextField.autocorrectionType = UITextAutocorrectionType.No
         sampleTextField.keyboardType = UIKeyboardType.Default
         sampleTextField.returnKeyType = UIReturnKeyType.Done
-//        sampleTextField.delegate = self
+        sampleTextField.delegate = self
         return sampleTextField
     }
     
@@ -47,7 +44,7 @@ class MSMListItemsVC: UIViewController, MSMContainer {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadContent(newContentView(true))
+        loadContent(newContentView(false))
     }
     
     override func didReceiveMemoryWarning() {
