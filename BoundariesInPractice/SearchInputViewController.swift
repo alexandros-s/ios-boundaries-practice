@@ -19,7 +19,7 @@ class SearchInputViewController: UIViewController, MSMContainer, UITextFieldDele
     
     var viewsConfigDictionary:[String : ViewConfig]?
     
-    
+       
     func convertConfigViewsDictionaryToViewsDictionary (cvd:[String : ViewConfig]) -> [String : UIView] {
         var viewD = [String : UIView]()
         
@@ -32,18 +32,19 @@ class SearchInputViewController: UIViewController, MSMContainer, UITextFieldDele
 
     }
     
-    func sizeConstraints(viewsConfigDictionary: [String : ViewConfig])  {
-        let viewsDictionary = convertConfigViewsDictionaryToViewsDictionary(viewsConfigDictionary)
+    func sizeConstraints(viewsDictionary: [String : UIView], metricsDictionary: [String: AnyObject])  {
      
-        for (key, config) in viewsConfigDictionary {
+        for (key, _) in viewsDictionary {
             let view_constraint_H = NSLayoutConstraint.constraintsWithVisualFormat(
-                "H:[\(key)(\(config.constraint_H))]",
+                "H:|[\(key)]|",
                 options: NSLayoutFormatOptions(rawValue: 0),
-                metrics: nil, views: viewsDictionary)
+                metrics: metricsDictionary,
+                views: viewsDictionary)
             let view_constraint_V = NSLayoutConstraint.constraintsWithVisualFormat(
-                "V:[\(key)(\(config.constraint_V))]",
+                "V:[\(key)(>=\(key)Height)]",
                 options: NSLayoutFormatOptions(rawValue:0),
-                metrics: nil, views: viewsDictionary)
+                metrics: metricsDictionary,
+                views: viewsDictionary)
             
             view.addConstraints(view_constraint_H)
             view.addConstraints(view_constraint_V)
@@ -88,7 +89,7 @@ class SearchInputViewController: UIViewController, MSMContainer, UITextFieldDele
     }
     
     func setupSubmitButton (btnTitle:String) -> UIButton {
-        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        let button = UIButton(type: .System)
         button.backgroundColor = .redColor()
         button.setTitle(btnTitle, forState: .Normal)
         button.addTarget(self, action: #selector(buttonAction), forControlEvents: .TouchUpInside)
@@ -106,17 +107,24 @@ class SearchInputViewController: UIViewController, MSMContainer, UITextFieldDele
     }
     
     func makeLayout() {
-        viewsConfigDictionary = [
-            "input" : ViewConfig(view: setupSearchInput(), constraint_H: "50", constraint_V: "50"),
-            "submit" : ViewConfig( view: setupSubmitButton(), constraint_H: "50", constraint_V: ">=40" )
+        
+        let viewsDictionary:[String:UIView] = [
+            "input" :setupSearchInput(),
+            "submit" : setupSubmitButton()
         ]
-        sizeConstraints(viewsConfigDictionary!)
-        positionConstraints(convertConfigViewsDictionaryToViewsDictionary(viewsConfigDictionary!))
+        
+        let metrics: [String:AnyObject] = [
+            "inputHeight" : 40,
+            "submitHeight" : 50,
+            "viewWidth" : 50
+        ]
+        
+        sizeConstraints(viewsDictionary, metricsDictionary: metrics)
+        positionConstraints(viewsDictionary)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         makeLayout()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -124,5 +132,12 @@ class SearchInputViewController: UIViewController, MSMContainer, UITextFieldDele
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    // TextField Delegates
+    func textFieldShouldReturn(textField: UITextField) -> Bool  {
+        print("done")
+        return true
     }
 }
