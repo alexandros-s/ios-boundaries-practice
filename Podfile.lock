@@ -1,0 +1,31 @@
+PODS:
+  - Alamofire (3.4.1)
+  - BrightFutures (4.1.0):
+    - Result (~> 2.0)
+  - Nimble (4.0.1)
+  - Result (2.0.0)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - Alamofire
+  - BrightFutures
+  - Nimble
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+
+EXTERNAL SOURCES:
+  SwiftyJSON:
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  SwiftyJSON:
+    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+SPEC CHECKSUMS:
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  BrightFutures: e18b83fd6fa8562ceb9902ee609f0de23b0ee110
+  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
+  Result: 9e75e1111c774c6ac594e14907b15057053a7959
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+COCOAPODS: 0.39.0
