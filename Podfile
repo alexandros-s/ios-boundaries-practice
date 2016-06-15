@@ -7,6 +7,7 @@ use_frameworks!
 
 target 'BoundariesInPractice' do
     pod 'Alamofire'
+    pod 'AlamofireImage'
     pod 'BrightFutures'
     pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 end

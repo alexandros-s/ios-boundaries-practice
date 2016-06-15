@@ -19,7 +19,10 @@ protocol LoadingContentViewControllerDelegate {
     func onContentLoaded()
 }
 
-class LoadingContentViewController: UIViewController, Loader {
+class LoadingContentViewController: UIViewController, Loader, UITableViewDelegate , UITableViewDataSource{
+    
+    var clans = [Clan]()
+    let clansFactory = ClansFactory()
     
     enum ViewState {
         case Idle
@@ -156,7 +159,12 @@ class LoadingContentViewController: UIViewController, Loader {
     }
     
     func setContentScreen() {
-        setAViewWithText("Content Ready...", UIColor.greenColor(), UIColor.blackColor())
+//        setAViewWithText("Content Ready...", UIColor.greenColor(), UIColor.blackColor())
+        let tableView = UITableView(frame: UIScreen.mainScreen().bounds, style: UITableViewStyle.Plain)
+        tableView.delegate      =   self
+        tableView.dataSource    =   self
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.view.addSubview(tableView)
     }
     
     func setErrorScreen() {
@@ -176,10 +184,26 @@ class LoadingContentViewController: UIViewController, Loader {
     }
     
     
+    //Conform to DataSource
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return clans.count
+    }
     
-    //
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = ClanViewCell()
+        let clan = self.clans[indexPath.row]
+        
+        cell.name = clan.name
+        cell.members = String(clan.membersCount)
+        cell.emblem =  clan.emblemUrl
+        
+        return cell
+    }
+    
+    // Conform to Loader
     func load () {
         state = ViewState.Loading
+        
         Alamofire.request(
             .GET, "https://api.worldoftanks.eu/wgn/clans/list/",
             parameters: [
@@ -190,9 +214,11 @@ class LoadingContentViewController: UIViewController, Loader {
                 switch response.result {
                 case .Success:
                     if let json = response.result.value {
-                        if (JSON(json)["data"].error == nil) {
+                        let data = JSON(json)["data"]
+                        if (data.error == nil) {
+                            self.clans = self.clansFactory.create(data)
                             
-                             self.state = ViewState.ContentReady
+                            self.state = ViewState.ContentReady
                         }
                         else
                         {
@@ -206,6 +232,7 @@ class LoadingContentViewController: UIViewController, Loader {
                 case .Failure(_):
                     self.state = ViewState.Error
                 }
+            }
         }
-    }
+    
 }

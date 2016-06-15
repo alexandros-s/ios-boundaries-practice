@@ -20,6 +20,8 @@
 		FA8AED4E1D102D6A00FFCBE5 /* SearchClansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AED4D1D102D6A00FFCBE5 /* SearchClansViewController.swift */; };
 		FA8AED501D1031FF00FFCBE5 /* SearchInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AED4F1D1031FF00FFCBE5 /* SearchInputViewController.swift */; };
 		FA8AED521D105A4900FFCBE5 /* LoadingContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AED511D105A4900FFCBE5 /* LoadingContentViewController.swift */; };
+		FA8AED551D119DAA00FFCBE5 /* ClansFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AED541D119DAA00FFCBE5 /* ClansFactory.swift */; };
+		FA8AED581D11B78500FFCBE5 /* ClanViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AED571D11B78500FFCBE5 /* ClanViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		FA8AED4D1D102D6A00FFCBE5 /* SearchClansViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchClansViewController.swift; sourceTree = "<group>"; };
 		FA8AED4F1D1031FF00FFCBE5 /* SearchInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInputViewController.swift; sourceTree = "<group>"; };
 		FA8AED511D105A4900FFCBE5 /* LoadingContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingContentViewController.swift; sourceTree = "<group>"; };
+		FA8AED541D119DAA00FFCBE5 /* ClansFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClansFactory.swift; sourceTree = "<group>"; };
+		FA8AED571D11B78500FFCBE5 /* ClanViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClanViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +172,8 @@
 		FA8AED471D0EF98D00FFCBE5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				FA8AED561D11B76F00FFCBE5 /* ViewCells */,
+				FA8AED531D119D8A00FFCBE5 /* Models */,
 				FA8AED4A1D0F0DA800FFCBE5 /* ProtocolExtentions */,
 				FA8AED1B1D0EF94300FFCBE5 /* MainViewController.swift */,
 				FA8AED4D1D102D6A00FFCBE5 /* SearchClansViewController.swift */,
@@ -183,6 +189,22 @@
 				FA8AED4B1D0F0DCC00FFCBE5 /* MSMVCChildLoader.swift */,
 			);
 			name = ProtocolExtentions;
+			sourceTree = "<group>";
+		};
+		FA8AED531D119D8A00FFCBE5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA8AED541D119DAA00FFCBE5 /* ClansFactory.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		FA8AED561D11B76F00FFCBE5 /* ViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				FA8AED571D11B78500FFCBE5 /* ClanViewCell.swift */,
+			);
+			name = ViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,8 +440,10 @@
 				FA8AED4E1D102D6A00FFCBE5 /* SearchClansViewController.swift in Sources */,
 				FA8AED501D1031FF00FFCBE5 /* SearchInputViewController.swift in Sources */,
 				FA8AED1C1D0EF94300FFCBE5 /* MainViewController.swift in Sources */,
+				FA8AED551D119DAA00FFCBE5 /* ClansFactory.swift in Sources */,
 				FA8AED521D105A4900FFCBE5 /* LoadingContentViewController.swift in Sources */,
 				FA8AED1A1D0EF94300FFCBE5 /* AppDelegate.swift in Sources */,
+				FA8AED581D11B78500FFCBE5 /* ClanViewCell.swift in Sources */,
 				FA8AED4C1D0F0DCC00FFCBE5 /* MSMVCChildLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
