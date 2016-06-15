@@ -8,9 +8,15 @@
 
 import Foundation
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 protocol Loader {
     func load()
+}
+
+protocol LoadingContentViewControllerDelegate {
+    func onContentLoaded()
 }
 
 class LoadingContentViewController: UIViewController, Loader {
@@ -70,8 +76,10 @@ class LoadingContentViewController: UIViewController, Loader {
             case .Loading :
                 setLoadingScreen()
             break
-            default :
-            return
+            case .ContentReady :
+                setContentScreen()
+            case .Error:
+                setErrorScreen()
         }
     }
     
@@ -117,11 +125,12 @@ class LoadingContentViewController: UIViewController, Loader {
     func setAViewWithText (text:String, _ bgColor:UIColor, _ txtColor:UIColor) {
         let aView = UIView()
         aView.translatesAutoresizingMaskIntoConstraints = false
-        aView.backgroundColor = bgColor
+        
         
         let textView = UITextView(frame: UIScreen.mainScreen().bounds)
         textView.text = text
         textView.textColor = txtColor
+        textView.backgroundColor = bgColor
         textView.font = UIFont.systemFontOfSize(30)
         textView.editable = false
         
@@ -146,6 +155,14 @@ class LoadingContentViewController: UIViewController, Loader {
         setAViewWithText("Loading...", UIColor.grayColor(), UIColor.blackColor())
     }
     
+    func setContentScreen() {
+        setAViewWithText("Content Ready...", UIColor.greenColor(), UIColor.blackColor())
+    }
+    
+    func setErrorScreen() {
+        setAViewWithText("Error...", UIColor.redColor(), UIColor.whiteColor())
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -160,10 +177,35 @@ class LoadingContentViewController: UIViewController, Loader {
     
     
     
-    // 
-    
+    //
     func load () {
         state = ViewState.Loading
+        Alamofire.request(
+            .GET, "https://api.worldoftanks.eu/wgn/clans/list/",
+            parameters: [
+                "application_id": "b791d483d27cc9c5287ea49faf6186d9",
+                "search": "QSF"])
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .Success:
+                    if let json = response.result.value {
+                        if (JSON(json)["data"].error == nil) {
+                            
+                             self.state = ViewState.ContentReady
+                        }
+                        else
+                        {
+                            self.state = ViewState.Error
+                        }
+                    }
+                    else
+                    {
+                        self.state = ViewState.Error
+                    }
+                case .Failure(_):
+                    self.state = ViewState.Error
+                }
+        }
     }
-
 }
