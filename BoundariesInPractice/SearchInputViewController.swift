@@ -17,38 +17,42 @@ struct ViewConfig {
 
 class SearchInputViewController: UIViewController, MSMContainer, UITextFieldDelegate {
     
-    var viewsConfigDictionary:[String : ViewConfig]?
+    var content:UIViewController?
     
-       
-    func convertConfigViewsDictionaryToViewsDictionary (cvd:[String : ViewConfig]) -> [String : UIView] {
-        var viewD = [String : UIView]()
-        
-        
-        for (key, config) in viewsConfigDictionary! {
-            viewD[key] = config.view
-        }
-        
-        return viewD
-
-    }
     
     func sizeConstraints(viewsDictionary: [String : UIView], metricsDictionary: [String: AnyObject])  {
      
-        for (key, _) in viewsDictionary {
-            let view_constraint_H = NSLayoutConstraint.constraintsWithVisualFormat(
-                "H:|[\(key)]|",
+        
+            let inputView_constraint_H = NSLayoutConstraint.constraintsWithVisualFormat(
+                "H:|[input]|",
                 options: NSLayoutFormatOptions(rawValue: 0),
                 metrics: metricsDictionary,
                 views: viewsDictionary)
-            let view_constraint_V = NSLayoutConstraint.constraintsWithVisualFormat(
-                "V:[\(key)(>=\(key)Height)]",
+            let inputView_constraint_V = NSLayoutConstraint.constraintsWithVisualFormat(
+                "V:[input(inputHeight)]",
                 options: NSLayoutFormatOptions(rawValue:0),
                 metrics: metricsDictionary,
                 views: viewsDictionary)
+        
+        
+            let contentView_constraint_H = NSLayoutConstraint.constraintsWithVisualFormat(
+                "H:|[content]|",
+                options: NSLayoutFormatOptions(rawValue:0),
+                metrics: metricsDictionary,
+                views: viewsDictionary)
+        
+            let contentView_constraint_V = NSLayoutConstraint.constraintsWithVisualFormat(
+                "V:[content(>=contentHeight)]",
+                options: NSLayoutFormatOptions(rawValue:0),
+                metrics: metricsDictionary,
+                views: viewsDictionary)
+        
             
-            view.addConstraints(view_constraint_H)
-            view.addConstraints(view_constraint_V)
-        }
+            view.addConstraints(inputView_constraint_H)
+            view.addConstraints(inputView_constraint_V)
+            view.addConstraints(contentView_constraint_H)
+            view.addConstraints(contentView_constraint_V)
+        
     }
     
     func positionConstraints(viewsDictionary: [String : UIView]) {
@@ -60,7 +64,7 @@ class SearchInputViewController: UIViewController, MSMContainer, UITextFieldDele
             options: NSLayoutFormatOptions(rawValue:0),
             metrics: nil, views: viewsDictionary)
         let view_constraint_V = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|-36-[input]-8-[submit]-0-|",
+            "V:|-36-[input]-8-[content]-0-|",
             options: NSLayoutFormatOptions.AlignAllLeading,
             metrics: nil, views: viewsDictionary)
         
@@ -88,35 +92,24 @@ class SearchInputViewController: UIViewController, MSMContainer, UITextFieldDele
         return setupSearchInput("Enter text here")
     }
     
-    func setupSubmitButton (btnTitle:String) -> UIButton {
-        let button = UIButton(type: .System)
-        button.backgroundColor = .redColor()
-        button.setTitle(btnTitle, forState: .Normal)
-        button.addTarget(self, action: #selector(buttonAction), forControlEvents: .TouchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(button)
-        return button
-    }
     
-    func setupSubmitButton() -> UIButton {
-        return setupSubmitButton("Submit")
-    }
-    
-    func buttonAction(sender: UIButton!) {
-        print("Button tapped")
+    func setupLoadingContent() -> UIViewController {
+        let content = loadContent(LoadingContentViewController())
+        content.view.translatesAutoresizingMaskIntoConstraints = false
+        return content
     }
     
     func makeLayout() {
+        content = setupLoadingContent()
         
         let viewsDictionary:[String:UIView] = [
             "input" :setupSearchInput(),
-            "submit" : setupSubmitButton()
+            "content" : content!.view
         ]
         
         let metrics: [String:AnyObject] = [
             "inputHeight" : 40,
-            "submitHeight" : 50,
-            "viewWidth" : 50
+            "contentHeight" : 50
         ]
         
         sizeConstraints(viewsDictionary, metricsDictionary: metrics)
@@ -137,7 +130,15 @@ class SearchInputViewController: UIViewController, MSMContainer, UITextFieldDele
     
     // TextField Delegates
     func textFieldShouldReturn(textField: UITextField) -> Bool  {
-        print("done")
-        return true
+        guard content != nil else {
+            return false
+        }
+        
+        if let loader = content as? Loader {
+            loader.load()
+            return true
+        }
+        
+        return false
     }
 }
